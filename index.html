@@ -7,97 +7,123 @@
 <meta name="robots" content="noindex">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-title" content="Raccourcis">
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%232340FF'/%3E%3Ctext x='32' y='44' font-family='Arial' font-weight='700' font-size='34' fill='white' text-anchor='middle'%3EM%3C/text%3E%3C/svg%3E">
+<meta name="theme-color" content="#F7F4EC">
+<link rel="icon" href="https://unananasencuisine.fr/favicon.svg">
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,800&family=Instrument+Sans:wght@400;500;600&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Caveat:wght@600;700&family=Figtree:wght@400;500;600;700&display=swap">
 <style>
-/* Mise en page : une colonne de groupes, chaque groupe = une grille de tuiles. Bleu Marina en accent. */
+/* Carnet de Marina : papier crème, encre marine, bleu Marina, jaune ananas.
+   Chaque groupe = une fiche épinglée avec un bout de scotch ; chaque raccourci = une étiquette. */
 :root{
-  --bg:#f4f5fb; --card:#ffffff; --ink:#151a33; --muted:#5d6482; --line:#dfe2ef;
-  --accent:#2340FF; --accent-soft:#e7ebff;
-  --f-display:"Bricolage Grotesque","Avenir Next",system-ui,sans-serif;
-  --f-ui:"Instrument Sans",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --paper:#F7F4EC; --card:#FFFDF7; --ink:#151E45; --muted:#5B6386; --rule:#E4DECF;
+  --blue:#2340FF; --yellow:#FFD23F; --green:#1E9E63; --coral:#FF6B4A; --lilac:#8B7CFF;
+  --tape:rgba(255,210,63,.55);
+  --f-hand:"Caveat","Segoe Print","Comic Sans MS",cursive;
+  --f-ui:"Figtree",ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif;
 }
 @media (prefers-color-scheme:dark){:root{
-  --bg:#0e1122; --card:#171b33; --ink:#eceffd; --muted:#a2a8c6; --line:#2a3052;
-  --accent:#7d8dff; --accent-soft:#232a55; color-scheme:dark}}
+  --paper:#11173A; --card:#1A2150; --ink:#F4F1E8; --muted:#B4B9D6; --rule:#2B3368;
+  --blue:#7C8CFF; --yellow:#FFD23F; --green:#3CCB8A; --coral:#FF8A70; --lilac:#A99CFF;
+  --tape:rgba(255,210,63,.35); color-scheme:dark}}
 *{box-sizing:border-box}
 html{-webkit-text-size-adjust:100%}
-body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.45 var(--f-ui);
+body{margin:0;background:var(--paper);color:var(--ink);font:16px/1.45 var(--f-ui);
+  background-image:radial-gradient(var(--rule) 1px,transparent 1.2px);background-size:22px 22px;
   padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
-.wrap{max-width:960px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:28px 56px}
-header{display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:space-between;gap:14px;margin-bottom:22px}
-h1{font:800 clamp(1.9rem,5vw,2.6rem)/1 var(--f-display);margin:0;letter-spacing:-.02em}
-h1 span{color:var(--accent)}
-.date{color:var(--muted);margin-top:6px}
-.search{position:relative;flex:1 1 260px;max-width:360px}
-.search input{width:100%;font:500 1rem var(--f-ui);color:var(--ink);background:var(--card);border:1.5px solid var(--line);border-radius:12px;padding:11px 14px 11px 38px;outline:none}
-.search input:focus{border-color:var(--accent);box-shadow:0 0 0 3px var(--accent-soft)}
-.search svg{position:absolute;left:12px;top:50%;transform:translateY(-50%);width:17px;height:17px;color:var(--muted)}
-.search kbd{position:absolute;right:10px;top:50%;transform:translateY(-50%);font:600 .75rem var(--f-ui);color:var(--muted);border:1px solid var(--line);border-radius:5px;padding:1px 6px}
-section{margin-top:26px}
-h2{font:600 .78rem var(--f-ui);letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin:0 0 10px;display:flex;align-items:center;gap:10px}
-h2::after{content:"";flex:1;height:1px;background:var(--line)}
-.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:10px}
-a.tile{display:flex;align-items:center;gap:12px;min-width:0;text-decoration:none;color:inherit;background:var(--card);border:1px solid var(--line);border-radius:12px;padding:11px 12px;transition:border-color .15s,transform .15s}
-a.tile:hover{border-color:var(--accent);transform:translateY(-1px)}
-a.tile:focus-visible{outline:2.5px solid var(--accent);outline-offset:2px}
-.ico{flex:0 0 36px;height:36px;border-radius:9px;display:grid;place-items:center;background:var(--accent-soft);color:var(--accent);font:800 1rem var(--f-display);overflow:hidden}
-.ico img{width:22px;height:22px}
-.txt{min-width:0;display:block;flex:1}
-.name,.desc{display:block}
-.name{font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.desc{font-size:.84rem;color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.empty{color:var(--muted);padding:30px 0;text-align:center}
-footer{margin-top:40px;color:var(--muted);font-size:.82rem}
-@media (prefers-reduced-motion:reduce){a.tile{transition:none}}
-@media (hover:none){.search kbd{display:none}}
+.wrap{max-width:1040px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:26px 60px}
+
+/* En-tête */
+header{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:18px 24px;margin-bottom:8px}
+.hi{display:flex;align-items:center;gap:14px;min-width:0}
+.logo{width:54px;height:64px;flex:0 0 auto;transform-origin:50% 90%;animation:sway 4s ease-in-out infinite}
+@keyframes sway{0%,100%{transform:rotate(-5deg)}50%{transform:rotate(5deg)}}
+h1{font:700 clamp(2.6rem,8vw,4.2rem)/.9 var(--f-hand);margin:0;letter-spacing:.01em}
+h1 em{font-style:normal;color:var(--blue);background:linear-gradient(transparent 62%,var(--yellow) 62%,var(--yellow) 90%,transparent 90%);padding:0 .08em}
+.date{font:600 1.35rem var(--f-hand);color:var(--muted);margin-top:4px}
+.search{flex:1 1 280px;max-width:380px}
+.search label{position:relative;display:block}
+.search input{width:100%;font:500 1rem var(--f-ui);color:var(--ink);background:var(--card);border:2px solid var(--ink);border-radius:999px;padding:12px 16px 12px 42px;outline:none;box-shadow:3px 3px 0 var(--ink)}
+.search input:focus{border-color:var(--blue);box-shadow:3px 3px 0 var(--blue)}
+.search svg{position:absolute;left:15px;top:50%;transform:translateY(-50%);width:18px;height:18px;color:var(--ink)}
+.tip{font:600 1.15rem var(--f-hand);color:var(--muted);margin:2px 0 0 18px}
+
+/* Fiches */
+main{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:34px 26px;margin-top:30px;align-items:start}
+.fiche{position:relative;background:var(--card);border:2px solid var(--ink);border-radius:6px;padding:26px 18px 18px;box-shadow:5px 5px 0 var(--c);min-width:0}
+.fiche:nth-child(3n+1){transform:rotate(-1deg)} .fiche:nth-child(3n+2){transform:rotate(.8deg)} .fiche:nth-child(3n){transform:rotate(-.4deg)}
+.fiche::before{content:"";position:absolute;top:-13px;left:50%;width:92px;height:26px;margin-left:-46px;background:var(--tape);transform:rotate(-3deg);border-left:2px dashed rgba(0,0,0,.06);border-right:2px dashed rgba(0,0,0,.06)}
+.fiche h2{font:700 2rem/1 var(--f-hand);margin:0 0 14px;display:flex;align-items:center;gap:8px}
+.fiche h2 .em{font-size:1.5rem}
+.fiche h2::after{content:"";flex:1;height:3px;border-radius:3px;background:var(--c);opacity:.5;margin-left:4px}
+.liens{display:flex;flex-direction:column;gap:9px}
+a.lien{display:flex;align-items:center;gap:12px;min-width:0;text-decoration:none;color:inherit;padding:8px 10px;border-radius:10px;border:2px solid transparent;transition:transform .15s,background .15s,border-color .15s}
+a.lien:hover{background:color-mix(in srgb,var(--c) 12%,transparent);border-color:var(--c);transform:translateX(4px) rotate(-.6deg)}
+a.lien:focus-visible{outline:3px solid var(--blue);outline-offset:2px}
+.ico{flex:0 0 38px;height:38px;border-radius:50%;display:grid;place-items:center;background:var(--c);color:#fff;font:700 1.35rem var(--f-hand);overflow:hidden;border:2px solid var(--ink)}
+.ico img{width:22px;height:22px;background:#fff;border-radius:4px}
+.txt{display:block;min-width:0;flex:1}
+.name{display:block;font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.desc{display:block;font-size:.88rem;color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.arrow{flex:0 0 auto;font:700 1.4rem var(--f-hand);color:var(--c);opacity:0;transform:translateX(-4px);transition:.15s}
+a.lien:hover .arrow{opacity:1;transform:none}
+.empty{grid-column:1/-1;text-align:center;font:600 1.8rem var(--f-hand);color:var(--muted);padding:40px 0}
+footer{margin-top:46px;text-align:center;font:600 1.25rem var(--f-hand);color:var(--muted)}
+footer a{color:var(--blue)}
+@media (max-width:520px){main{gap:30px}.fiche{transform:none!important}}
+@media (prefers-reduced-motion:reduce){.logo{animation:none}a.lien,.arrow{transition:none}}
 </style>
 </head>
 <body>
 <div class="wrap">
   <header>
-    <div>
-      <h1 id="hello">Bonjour <span>Marina</span></h1>
-      <div class="date" id="date"></div>
+    <div class="hi">
+      <svg class="logo" viewBox="0 0 40 48" aria-hidden="true"><path d="M20 2c-2 4-2 8 0 11 2-3 2-7 0-11zM11 6c1 4 4 7 7 8-1-4-4-7-7-8zm18 0c-3 1-6 4-7 8 3-1 6-4 7-8z" fill="#1E9E63"/><ellipse cx="20" cy="31" rx="12" ry="15" fill="#FFD23F"/><path d="M12 22l16 18M28 22L12 40M9 30l14-10M31 30L17 20M10 37l19-14M30 37L11 23" stroke="#F7F4EC" stroke-width="1.6" opacity=".55"/></svg>
+      <div>
+        <h1 id="hello">Bonjour <em>Marina</em> !</h1>
+        <div class="date" id="date"></div>
+      </div>
     </div>
-    <label class="search">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
-      <input id="q" type="search" placeholder="Rechercher un raccourci" aria-label="Rechercher un raccourci" autocomplete="off">
-      <kbd aria-hidden="true">/</kbd>
-    </label>
+    <div class="search">
+      <label>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+        <input id="q" type="search" placeholder="Je cherche…" aria-label="Rechercher un raccourci" autocomplete="off">
+      </label>
+      <div class="tip" id="tip">Tape « / » pour chercher, Entrée pour ouvrir</div>
+    </div>
   </header>
+
   <main id="groups"></main>
-  <footer>Pour ajouter un raccourci : modifie la liste LIENS en haut du script de cette page.</footer>
+  <footer>Mon petit carnet de liens · <a href="https://unananasencuisine.fr">un ananas en cuisine</a> 🍍</footer>
 </div>
 
 <script>
 /* ====== TES RACCOURCIS ======
-   Un raccourci = { nom, desc, url }. Ajoute, retire ou déplace des lignes ici. */
+   Un groupe = { groupe, emoji, couleur, liens: [ { nom, desc, url } ] }.
+   Couleurs possibles : blue, yellow, green, coral, lilac. */
 const LIENS = [
-  { groupe: "Théâtre · Arturo Ui", liens: [
+  { groupe: "Arturo Ui", emoji: "🎭", couleur: "coral", liens: [
     { nom: "Outil de répétition", desc: "Prologue, Butcher, Giri et notes", url: "https://claude.ai/artifact/2XBbLBPC363D9HiFDK2mnF" },
     { nom: "Intentions de jeu", desc: "Scène par scène", url: "https://claude.ai/artifact/SX55ZB8LTnfaWQHCPp6KKF" },
   ]},
-  { groupe: "Mes sites", liens: [
+  { groupe: "Mes sites", emoji: "🍍", couleur: "yellow", liens: [
     { nom: "Un Ananas en cuisine", desc: "Mon blog de recettes", url: "https://unananasencuisine.fr" },
     { nom: "Portfolio pro", desc: "marinahodebert.github.io/Pro", url: "https://marinahodebert.github.io/Pro" },
     { nom: "Cockpit perso", desc: "Sur ChatGPT", url: "https://marina-cockpit.mhodebert.chatgpt.site" },
     { nom: "Ancien blog Wix", desc: "Message de déménagement", url: "https://ananasnature.wixsite.com/website" },
     { nom: "Instagram du blog", desc: "@marina_l_ananas", url: "https://www.instagram.com/marina_l_ananas/" },
   ]},
-  { groupe: "Mes pages Claude", liens: [
+  { groupe: "Mes pages Claude", emoji: "✨", couleur: "lilac", liens: [
     { nom: "Mes sites et outils", desc: "Où est rangé quoi", url: "https://claude.ai/artifact/QwVCp8d4rYbN31RFP5P8Nk" },
     { nom: "Plan des combles", desc: "Réaménagement", url: "https://claude.ai/artifact/B9UYENDQaVHMGYoNEVcJv6" },
     { nom: "Bibliothèque Marina", desc: "V4 Hybride", url: "https://claude.ai/artifact/Cg9JYRebWko6yRwHwERjAf" },
     { nom: "Toutes mes pages Claude", desc: "La liste complète", url: "https://claude.ai/code/artifacts" },
   ]},
-  { groupe: "Outils", liens: [
+  { groupe: "Outils", emoji: "🧰", couleur: "blue", liens: [
     { nom: "Claude", desc: "claude.ai", url: "https://claude.ai" },
     { nom: "ChatGPT", desc: "chatgpt.com", url: "https://chatgpt.com" },
     { nom: "Todoist", desc: "Mes tâches", url: "https://app.todoist.com" },
   ]},
-  { groupe: "Gestion des sites", liens: [
+  { groupe: "Gestion des sites", emoji: "🔧", couleur: "green", liens: [
     { nom: "Netlify", desc: "Héberge le blog", url: "https://app.netlify.com" },
     { nom: "GitHub", desc: "marinahodebert", url: "https://github.com/marinahodebert" },
     { nom: "Dépôt Bibliothèque", desc: "bibliotheque-marina", url: "https://github.com/marinahodebert/bibliotheque-marina" },
@@ -111,30 +137,32 @@ const esc = s => String(s).replace(/[&<>"]/g, c => ({ "&":"&amp;", "<":"&lt;", "
 const host = u => { try { return new URL(u).hostname; } catch (e) { return ""; } };
 const norm = s => s.normalize("NFD").replace(/[̀-ͯ]/g, "").toLowerCase();
 
-function tile(l) {
+function lien(l) {
   const h = host(l.url), letter = esc((l.nom || "?").trim()[0].toUpperCase());
-  return `<a class="tile" href="${esc(l.url)}" target="_blank" rel="noopener">
+  return `<a class="lien" href="${esc(l.url)}" target="_blank" rel="noopener">
     <span class="ico"><img src="https://icons.duckduckgo.com/ip3/${esc(h)}.ico" alt="" loading="lazy" onerror="this.replaceWith(document.createTextNode('${letter}'))"></span>
-    <span class="txt"><span class="name">${esc(l.nom)}</span><span class="desc">${esc(l.desc || h)}</span></span></a>`;
+    <span class="txt"><span class="name">${esc(l.nom)}</span><span class="desc">${esc(l.desc || h)}</span></span>
+    <span class="arrow" aria-hidden="true">→</span></a>`;
 }
 function render(q) {
   const n = norm(q || "");
   const html = LIENS.map(g => {
     const ls = g.liens.filter(l => !n || norm(l.nom + " " + (l.desc || "") + " " + g.groupe).includes(n));
-    return ls.length ? `<section><h2>${esc(g.groupe)}</h2><div class="grid">${ls.map(tile).join("")}</div></section>` : "";
+    return ls.length ? `<section class="fiche" style="--c:var(--${esc(g.couleur || "blue")})"><h2><span class="em" aria-hidden="true">${g.emoji || ""}</span>${esc(g.groupe)}</h2><div class="liens">${ls.map(lien).join("")}</div></section>` : "";
   }).join("");
-  document.getElementById("groups").innerHTML = html || `<p class="empty">Aucun raccourci ne correspond à « ${esc(q)} ».</p>`;
+  document.getElementById("groups").innerHTML = html || `<p class="empty">Rien trouvé pour « ${esc(q)} »… 🍍</p>`;
 }
 const qi = document.getElementById("q");
 qi.addEventListener("input", () => render(qi.value));
 qi.addEventListener("keydown", e => {
-  if (e.key === "Enter") { const a = document.querySelector("a.tile"); if (a) window.open(a.href, "_blank", "noopener"); }
+  if (e.key === "Enter") { const a = document.querySelector("a.lien"); if (a) window.open(a.href, "_blank", "noopener"); }
   if (e.key === "Escape") { qi.value = ""; render(""); qi.blur(); }
 });
 document.addEventListener("keydown", e => { if (e.key === "/" && document.activeElement !== qi) { e.preventDefault(); qi.focus(); } });
+if (matchMedia("(hover:none)").matches) document.getElementById("tip").hidden = true;
 
 const now = new Date(), h = now.getHours();
-document.getElementById("hello").innerHTML = (h < 5 || h >= 18 ? "Bonsoir" : "Bonjour") + " <span>Marina</span>";
+document.getElementById("hello").innerHTML = (h < 5 || h >= 18 ? "Bonsoir" : "Bonjour") + " <em>Marina</em> !";
 document.getElementById("date").textContent = now.toLocaleDateString("fr-FR", { weekday: "long", day: "numeric", month: "long" });
 render("");
 </script>
