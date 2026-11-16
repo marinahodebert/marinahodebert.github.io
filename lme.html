@@ -1,0 +1,205 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>LME · Raccourcis</title>
+<meta name="robots" content="noindex">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="LME">
+<meta name="theme-color" content="#F3EEF9">
+<link rel="icon" href="https://unananasencuisine.fr/favicon.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Caveat:wght@600;700&family=Figtree:wght@400;500;600;700&display=swap">
+<style>
+/* Carnet de Marina : papier crème, encre marine, bleu Marina, jaune ananas.
+   Chaque groupe = une fiche épinglée avec un bout de scotch ; chaque raccourci = une étiquette. */
+:root{
+  --paper:#F3EEF9; --card:#FFFDF7; --ink:#151E45; --muted:#5B6386; --rule:#E4DECF;
+  --blue:#6A2BD9; --yellow:#FFD23F; --green:#1E9E63; --coral:#FF6B4A; --lilac:#8B7CFF;
+  --tape:rgba(255,210,63,.55);
+  --f-hand:"Caveat","Segoe Print","Comic Sans MS",cursive;
+  --f-ui:"Figtree",ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif;
+}
+@media (prefers-color-scheme:dark){:root{
+  --paper:#1B1236; --card:#261A4A; --ink:#F4F1E8; --muted:#B4B9D6; --rule:#2B3368;
+  --blue:#B794FF; --yellow:#FFD23F; --green:#3CCB8A; --coral:#FF8A70; --lilac:#A99CFF;
+  --tape:rgba(255,210,63,.35); color-scheme:dark}}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--paper);color:var(--ink);font:16px/1.45 var(--f-ui);
+  background-image:radial-gradient(var(--rule) 1px,transparent 1.2px);background-size:22px 22px;
+  padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+.wrap{max-width:1040px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:26px 60px}
+
+/* En-tête */
+header{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:18px 24px;margin-bottom:8px}
+.hi{display:flex;align-items:center;gap:14px;min-width:0}
+.logo{width:54px;height:64px;flex:0 0 auto;transform-origin:50% 90%;animation:sway 4s ease-in-out infinite}
+@keyframes sway{0%,100%{transform:rotate(-5deg)}50%{transform:rotate(5deg)}}
+h1{font:700 clamp(2.6rem,8vw,4.2rem)/.9 var(--f-hand);margin:0;letter-spacing:.01em}
+h1 em{font-style:normal;color:var(--blue);background:linear-gradient(transparent 62%,var(--yellow) 62%,var(--yellow) 90%,transparent 90%);padding:0 .08em}
+.date{font:600 1.35rem var(--f-hand);color:var(--muted);margin-top:4px}
+.search{flex:1 1 280px;max-width:380px}
+.search label{position:relative;display:block}
+.search input{width:100%;font:500 1rem var(--f-ui);color:var(--ink);background:var(--card);border:2px solid var(--ink);border-radius:999px;padding:12px 16px 12px 42px;outline:none;box-shadow:3px 3px 0 var(--ink)}
+.search input:focus{border-color:var(--blue);box-shadow:3px 3px 0 var(--blue)}
+.search svg{position:absolute;left:15px;top:50%;transform:translateY(-50%);width:18px;height:18px;color:var(--ink)}
+.tip{font:600 1.15rem var(--f-hand);color:var(--muted);margin:2px 0 0 18px}
+
+/* Fiches */
+main{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:34px 26px;margin-top:30px;align-items:start}
+.fiche{position:relative;background:var(--card);border:2px solid var(--ink);border-radius:6px;padding:26px 18px 18px;box-shadow:5px 5px 0 var(--c);min-width:0}
+.fiche:nth-child(3n+1){transform:rotate(-1deg)} .fiche:nth-child(3n+2){transform:rotate(.8deg)} .fiche:nth-child(3n){transform:rotate(-.4deg)}
+.fiche::before{content:"";position:absolute;top:-13px;left:50%;width:92px;height:26px;margin-left:-46px;background:var(--tape);transform:rotate(-3deg);border-left:2px dashed rgba(0,0,0,.06);border-right:2px dashed rgba(0,0,0,.06)}
+.fiche h2{font:700 2rem/1 var(--f-hand);margin:0 0 14px;display:flex;align-items:center;gap:8px}
+.fiche h2 .em{font-size:1.5rem}
+.fiche h2::after{content:"";flex:1;height:3px;border-radius:3px;background:var(--c);opacity:.5;margin-left:4px}
+.liens{display:flex;flex-direction:column;gap:9px}
+a.lien{display:flex;align-items:center;gap:12px;min-width:0;text-decoration:none;color:inherit;padding:8px 10px;border-radius:10px;border:2px solid transparent;transition:transform .15s,background .15s,border-color .15s}
+a.lien:hover{background:color-mix(in srgb,var(--c) 12%,transparent);border-color:var(--c);transform:translateX(4px) rotate(-.6deg)}
+a.lien:focus-visible{outline:3px solid var(--blue);outline-offset:2px}
+.ico{flex:0 0 38px;height:38px;border-radius:50%;display:grid;place-items:center;background:var(--c);color:#fff;font:700 1.35rem var(--f-hand);overflow:hidden;border:2px solid var(--ink)}
+.ico img{width:22px;height:22px;background:#fff;border-radius:4px}
+.txt{display:block;min-width:0;flex:1}
+.name{display:block;font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.desc{display:block;font-size:.88rem;color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.arrow{flex:0 0 auto;font:700 1.4rem var(--f-hand);color:var(--c);opacity:0;transform:translateX(-4px);transition:.15s}
+a.lien:hover .arrow{opacity:1;transform:none}
+.back{display:inline-block;margin-top:4px;font:600 1.3rem var(--f-hand);color:var(--blue);text-decoration:none}
+.back:hover{text-decoration:underline}
+.empty{grid-column:1/-1;text-align:center;font:600 1.8rem var(--f-hand);color:var(--muted);padding:40px 0}
+footer{margin-top:46px;text-align:center;font:600 1.25rem var(--f-hand);color:var(--muted)}
+footer a{color:var(--blue)}
+@media (max-width:520px){main{gap:30px}.fiche{transform:none!important}}
+@media (prefers-reduced-motion:reduce){.logo{animation:none}a.lien,.arrow{transition:none}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <div class="hi">
+      <svg class="logo" viewBox="0 0 40 48" aria-hidden="true"><path d="M30 4v26" stroke="#6A2BD9" stroke-width="3" stroke-linecap="round"/><path d="M30 4c4 2 7 5 7 10-2-3-4-4-7-4" fill="#6A2BD9"/><ellipse cx="22" cy="32" rx="9" ry="7" transform="rotate(-20 22 32)" fill="#FFD23F" stroke="#151E45" stroke-width="2"/><circle cx="11" cy="12" r="2" fill="#FF6B4A"/><circle cx="8" cy="22" r="1.5" fill="#1E9E63"/></svg>
+      <div>
+        <h1 id="hello">Bonjour <em>LME</em> !</h1>
+        <div class="date" id="date"></div><a class="back" href="./">← mes raccourcis perso</a>
+      </div>
+    </div>
+    <div class="search">
+      <label>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+        <input id="q" type="search" placeholder="Je cherche…" aria-label="Rechercher un raccourci" autocomplete="off">
+      </label>
+      <div class="tip" id="tip">Tape « / » pour chercher, Entrée pour ouvrir</div>
+    </div>
+  </header>
+
+  <main id="groups"></main>
+  <footer>Le carnet de la secrétaire · <a href="https://www.lme94.fr/">Le Maître Enchanteur</a> 🎶</footer>
+</div>
+
+<script>
+/* ====== TES RACCOURCIS ======
+   Un groupe = { groupe, emoji, couleur, liens: [ { nom, desc, url } ] }.
+   Couleurs possibles : blue, yellow, green, coral, lilac. */
+const LIENS = [
+ {
+  "groupe": "L'asso",
+  "emoji": "🎭",
+  "couleur": "lilac",
+  "liens": [
+   {
+    "nom": "Site LME94",
+    "desc": "lme94.fr",
+    "url": "https://www.lme94.fr/"
+   },
+   {
+    "nom": "AssoConnect · gestion",
+    "desc": "Administration de l'asso",
+    "url": "https://le-maitre-enchanteur-lme94.assoconnect.com/organization/565689/home"
+   },
+   {
+    "nom": "AssoConnect · espace membre",
+    "desc": "Page de connexion",
+    "url": "https://le-maitre-enchanteur-lme94.assoconnect.com/contacts/login"
+   }
+  ]
+ },
+ {
+  "groupe": "Communication",
+  "emoji": "📬",
+  "couleur": "coral",
+  "liens": [
+   {
+    "nom": "Gmail de l'asso",
+    "desc": "Boîte de réception",
+    "url": "https://mail.google.com/mail/u/0/#inbox"
+   },
+   {
+    "nom": "WhatsApp Web",
+    "desc": "Communautés LME",
+    "url": "https://web.whatsapp.com/"
+   }
+  ]
+ },
+ {
+  "groupe": "Google de l'asso",
+  "emoji": "🗂️",
+  "couleur": "green",
+  "liens": [
+   {
+    "nom": "Drive",
+    "desc": "Dossiers partagés de LME",
+    "url": "https://drive.google.com/drive/u/0/my-drive"
+   },
+   {
+    "nom": "Agenda",
+    "desc": "Répétitions et spectacles",
+    "url": "https://calendar.google.com/calendar/u/0/r"
+   },
+   {
+    "nom": "Forms",
+    "desc": "Formulaires d'inscription",
+    "url": "https://docs.google.com/forms/u/0/"
+   }
+  ]
+ }
+];
+/* ====== fin de la liste ====== */
+
+const esc = s => String(s).replace(/[&<>"]/g, c => ({ "&":"&amp;", "<":"&lt;", ">":"&gt;", '"':"&quot;" }[c]));
+const host = u => { try { return new URL(u).hostname; } catch (e) { return ""; } };
+const norm = s => s.normalize("NFD").replace(/[̀-ͯ]/g, "").toLowerCase();
+
+function lien(l) {
+  const h = host(l.url), letter = esc((l.nom || "?").trim()[0].toUpperCase());
+  const ext = /^https?:/.test(l.url);
+  return `<a class="lien" href="${esc(l.url)}"${ext ? ' target="_blank" rel="noopener"' : ""}>
+    <span class="ico">${ext ? `<img src="https://icons.duckduckgo.com/ip3/${esc(h)}.ico" alt="" loading="lazy" onerror="this.replaceWith(document.createTextNode('${letter}'))">` : "🍰"}</span>
+    <span class="txt"><span class="name">${esc(l.nom)}</span><span class="desc">${esc(l.desc || h)}</span></span>
+    <span class="arrow" aria-hidden="true">→</span></a>`;
+}
+function render(q) {
+  const n = norm(q || "");
+  const html = LIENS.map(g => {
+    const ls = g.liens.filter(l => !n || norm(l.nom + " " + (l.desc || "") + " " + g.groupe).includes(n));
+    return ls.length ? `<section class="fiche" style="--c:var(--${esc(g.couleur || "blue")})"><h2><span class="em" aria-hidden="true">${g.emoji || ""}</span>${esc(g.groupe)}</h2><div class="liens">${ls.map(lien).join("")}</div></section>` : "";
+  }).join("");
+  document.getElementById("groups").innerHTML = html || `<p class="empty">Rien trouvé pour « ${esc(q)} »… 🍍</p>`;
+}
+const qi = document.getElementById("q");
+qi.addEventListener("input", () => render(qi.value));
+qi.addEventListener("keydown", e => {
+  if (e.key === "Enter") { const a = document.querySelector("a.lien"); if (a) window.open(a.href, "_blank", "noopener"); }
+  if (e.key === "Escape") { qi.value = ""; render(""); qi.blur(); }
+});
+document.addEventListener("keydown", e => { if (e.key === "/" && document.activeElement !== qi) { e.preventDefault(); qi.focus(); } });
+if (matchMedia("(hover:none)").matches) document.getElementById("tip").hidden = true;
+
+const now = new Date(), h = now.getHours();
+document.getElementById("hello").innerHTML = (h < 5 || h >= 18 ? "Bonsoir" : "Bonjour") + " <em>LME</em> !";
+document.getElementById("date").textContent = now.toLocaleDateString("fr-FR", { weekday: "long", day: "numeric", month: "long" });
+render("");
+</script>
+</body>
+</html>

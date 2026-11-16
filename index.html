@@ -112,6 +112,7 @@ const LIENS = [
     { nom: "Ancien blog Wix", desc: "Message de déménagement", url: "https://ananasnature.wixsite.com/website" },
     { nom: "Instagram du blog", desc: "@marina_l_ananas", url: "https://www.instagram.com/marina_l_ananas/" },
     { nom: "Recettes à tester", desc: "Une centaine de recettes repérées", url: "recettes.html" },
+    { nom: "Raccourcis LME", desc: "Ma page pour l'asso", url: "lme.html" },
   ]},
   { groupe: "Au quotidien", emoji: "☕", couleur: "coral", liens: [
     { nom: "Google Drive", desc: "Mes fichiers", url: "https://drive.google.com" },
@@ -161,7 +162,7 @@ function lien(l) {
   const h = host(l.url), letter = esc((l.nom || "?").trim()[0].toUpperCase());
   const ext = /^https?:/.test(l.url);
   return `<a class="lien" href="${esc(l.url)}"${ext ? ' target="_blank" rel="noopener"' : ""}>
-    <span class="ico">${ext ? `<img src="https://icons.duckduckgo.com/ip3/${esc(h)}.ico" alt="" loading="lazy" onerror="this.replaceWith(document.createTextNode('${letter}'))">` : "🍰"}</span>
+    <span class="ico">${ext ? `<img src="https://icons.duckduckgo.com/ip3/${esc(h)}.ico" alt="" loading="lazy" onerror="this.replaceWith(document.createTextNode('${letter}'))">` : (l.url.includes("recettes") ? "🍰" : "🎶")}</span>
     <span class="txt"><span class="name">${esc(l.nom)}</span><span class="desc">${esc(l.desc || h)}</span></span>
     <span class="arrow" aria-hidden="true">→</span></a>`;
 }
