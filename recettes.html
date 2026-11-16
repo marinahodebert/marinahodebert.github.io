@@ -1,0 +1,729 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Marina · Recettes à tester</title>
+<meta name="robots" content="noindex">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Recettes">
+<meta name="theme-color" content="#F7F4EC">
+<link rel="icon" href="https://unananasencuisine.fr/favicon.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Caveat:wght@600;700&family=Figtree:wght@400;500;600;700&display=swap">
+<style>
+/* Carnet de Marina : papier crème, encre marine, bleu Marina, jaune ananas.
+   Chaque groupe = une fiche épinglée avec un bout de scotch ; chaque raccourci = une étiquette. */
+:root{
+  --paper:#F7F4EC; --card:#FFFDF7; --ink:#151E45; --muted:#5B6386; --rule:#E4DECF;
+  --blue:#2340FF; --yellow:#FFD23F; --green:#1E9E63; --coral:#FF6B4A; --lilac:#8B7CFF;
+  --tape:rgba(255,210,63,.55);
+  --f-hand:"Caveat","Segoe Print","Comic Sans MS",cursive;
+  --f-ui:"Figtree",ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif;
+}
+@media (prefers-color-scheme:dark){:root{
+  --paper:#11173A; --card:#1A2150; --ink:#F4F1E8; --muted:#B4B9D6; --rule:#2B3368;
+  --blue:#7C8CFF; --yellow:#FFD23F; --green:#3CCB8A; --coral:#FF8A70; --lilac:#A99CFF;
+  --tape:rgba(255,210,63,.35); color-scheme:dark}}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--paper);color:var(--ink);font:16px/1.45 var(--f-ui);
+  background-image:radial-gradient(var(--rule) 1px,transparent 1.2px);background-size:22px 22px;
+  padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+.wrap{max-width:1040px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:26px 60px}
+
+/* En-tête */
+header{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:18px 24px;margin-bottom:8px}
+.hi{display:flex;align-items:center;gap:14px;min-width:0}
+.logo{width:54px;height:64px;flex:0 0 auto;transform-origin:50% 90%;animation:sway 4s ease-in-out infinite}
+@keyframes sway{0%,100%{transform:rotate(-5deg)}50%{transform:rotate(5deg)}}
+h1{font:700 clamp(2.6rem,8vw,4.2rem)/.9 var(--f-hand);margin:0;letter-spacing:.01em}
+h1 em{font-style:normal;color:var(--blue);background:linear-gradient(transparent 62%,var(--yellow) 62%,var(--yellow) 90%,transparent 90%);padding:0 .08em}
+.date{font:600 1.35rem var(--f-hand);color:var(--muted);margin-top:4px}
+.search{flex:1 1 280px;max-width:380px}
+.search label{position:relative;display:block}
+.search input{width:100%;font:500 1rem var(--f-ui);color:var(--ink);background:var(--card);border:2px solid var(--ink);border-radius:999px;padding:12px 16px 12px 42px;outline:none;box-shadow:3px 3px 0 var(--ink)}
+.search input:focus{border-color:var(--blue);box-shadow:3px 3px 0 var(--blue)}
+.search svg{position:absolute;left:15px;top:50%;transform:translateY(-50%);width:18px;height:18px;color:var(--ink)}
+.tip{font:600 1.15rem var(--f-hand);color:var(--muted);margin:2px 0 0 18px}
+
+/* Fiches */
+main{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:34px 26px;margin-top:30px;align-items:start}
+.fiche{position:relative;background:var(--card);border:2px solid var(--ink);border-radius:6px;padding:26px 18px 18px;box-shadow:5px 5px 0 var(--c);min-width:0}
+.fiche:nth-child(3n+1){transform:rotate(-1deg)} .fiche:nth-child(3n+2){transform:rotate(.8deg)} .fiche:nth-child(3n){transform:rotate(-.4deg)}
+.fiche::before{content:"";position:absolute;top:-13px;left:50%;width:92px;height:26px;margin-left:-46px;background:var(--tape);transform:rotate(-3deg);border-left:2px dashed rgba(0,0,0,.06);border-right:2px dashed rgba(0,0,0,.06)}
+.fiche h2{font:700 2rem/1 var(--f-hand);margin:0 0 14px;display:flex;align-items:center;gap:8px}
+.fiche h2 .em{font-size:1.5rem}
+.fiche h2::after{content:"";flex:1;height:3px;border-radius:3px;background:var(--c);opacity:.5;margin-left:4px}
+.liens{display:flex;flex-direction:column;gap:9px}
+a.lien{display:flex;align-items:center;gap:12px;min-width:0;text-decoration:none;color:inherit;padding:8px 10px;border-radius:10px;border:2px solid transparent;transition:transform .15s,background .15s,border-color .15s}
+a.lien:hover{background:color-mix(in srgb,var(--c) 12%,transparent);border-color:var(--c);transform:translateX(4px) rotate(-.6deg)}
+a.lien:focus-visible{outline:3px solid var(--blue);outline-offset:2px}
+.ico{flex:0 0 38px;height:38px;border-radius:50%;display:grid;place-items:center;background:var(--c);color:#fff;font:700 1.35rem var(--f-hand);overflow:hidden;border:2px solid var(--ink)}
+.ico img{width:22px;height:22px;background:#fff;border-radius:4px}
+.txt{display:block;min-width:0;flex:1}
+.name{display:block;font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.desc{display:block;font-size:.88rem;color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.arrow{flex:0 0 auto;font:700 1.4rem var(--f-hand);color:var(--c);opacity:0;transform:translateX(-4px);transition:.15s}
+a.lien:hover .arrow{opacity:1;transform:none}
+.ico{display:none}
+.name,.desc{white-space:normal}
+.row{display:flex;align-items:center;gap:6px;min-width:0}
+.row .lien{flex:1}
+.chk{flex:0 0 26px;height:26px;border:2px solid var(--ink);border-radius:6px;background:var(--card);color:var(--green);font:700 1rem var(--f-ui);cursor:pointer;display:grid;place-items:center;padding:0}
+.chk:focus-visible{outline:3px solid var(--blue);outline-offset:2px}
+.row.ok .name{text-decoration:line-through;text-decoration-color:var(--green);text-decoration-thickness:2px}
+.cnt{margin-left:auto;order:2;font:600 1.1rem var(--f-hand);color:var(--muted)}
+.back{display:inline-block;margin-top:4px;font:600 1.3rem var(--f-hand);color:var(--blue);text-decoration:none}
+.back:hover{text-decoration:underline}
+.empty{grid-column:1/-1;text-align:center;font:600 1.8rem var(--f-hand);color:var(--muted);padding:40px 0}
+footer{margin-top:46px;text-align:center;font:600 1.25rem var(--f-hand);color:var(--muted)}
+footer a{color:var(--blue)}
+@media (max-width:520px){main{gap:30px}.fiche{transform:none!important}}
+@media (prefers-reduced-motion:reduce){.logo{animation:none}a.lien,.arrow{transition:none}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <div class="hi">
+      <svg class="logo" viewBox="0 0 40 48" aria-hidden="true"><path d="M20 2c-2 4-2 8 0 11 2-3 2-7 0-11zM11 6c1 4 4 7 7 8-1-4-4-7-7-8zm18 0c-3 1-6 4-7 8 3-1 6-4 7-8z" fill="#1E9E63"/><ellipse cx="20" cy="31" rx="12" ry="15" fill="#FFD23F"/><path d="M12 22l16 18M28 22L12 40M9 30l14-10M31 30L17 20M10 37l19-14M30 37L11 23" stroke="#F7F4EC" stroke-width="1.6" opacity=".55"/></svg>
+      <div>
+        <h1>Recettes <em>à tester</em></h1>
+        <div class="date" id="date"></div><a class="back" href="./">← mes raccourcis</a>
+      </div>
+    </div>
+    <div class="search">
+      <label>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+        <input id="q" type="search" placeholder="Chocolat, Thermomix, bûche…" aria-label="Rechercher un raccourci" autocomplete="off">
+      </label>
+      <div class="tip" id="tip">Coche ✓ les recettes testées</div>
+    </div>
+  </header>
+
+  <main id="groups"></main>
+  <footer>Les meilleures finiront sur · <a href="https://unananasencuisine.fr">Un Ananas en cuisine</a> 🍍</footer>
+</div>
+
+<script>
+/* ====== TES RACCOURCIS ======
+   Un groupe = { groupe, emoji, couleur, liens: [ { nom, desc, url } ] }.
+   Couleurs possibles : blue, yellow, green, coral, lilac. */
+const LIENS = [
+ {
+  "groupe": "Bûches de Noël",
+  "emoji": "🎄",
+  "couleur": "coral",
+  "liens": [
+   {
+    "nom": "Bûche framboise, cœur chocolat blanc",
+    "desc": "Les Recettes de Véro",
+    "url": "http://lesrecettesdevero.com/2014/12/28/buche-framboise-coeur-chocolat-blanc/"
+   },
+   {
+    "nom": "Bûche royal au chocolat (trianon)",
+    "desc": "Passion Pâtisserie",
+    "url": "http://www.passionpatisserie.fr/article-recette-buche-de-noel-buche-royal-au-chocolat-trianon-110629152.html"
+   },
+   {
+    "nom": "Bûche rochers chocolat praliné",
+    "desc": "Olivia Pâtisse",
+    "url": "http://oliviapatisse.com/2018/11/15/buche-rochers-chocolat-praline-recette-noel/"
+   },
+   {
+    "nom": "Bûche pâtissière citron framboise",
+    "desc": "Les gourmands disent d'Armelle",
+    "url": "http://lesgourmandsdisentdarmelle.fr/2019/01/buche-patissiere-citron-framboise.html"
+   },
+   {
+    "nom": "Bûche au chocolat",
+    "desc": "Amandine Cooking",
+    "url": "https://www.amandinecooking.com/buche-au-chocolat.html"
+   },
+   {
+    "nom": "Bûche dulcey, pommes caramélisées, spéculoos",
+    "desc": "Surprises et gourmandises",
+    "url": "http://www.surprisesetgourmandises.fr/2017/12/02/buche-de-noel-15-dulcey-pommes-caramelisees-speculoos/"
+   },
+   {
+    "nom": "Bûche chocolat praliné, amandes, cacahuètes",
+    "desc": "Youmiam",
+    "url": "https://youmiam.com/fr/recipe/18618/buche-chocolat-praline-amandes-cacahuetes-croustillant-praline-cacahuetes-biscuit-moelleux-amande-vanille-et-glacage-rocher-choc/show"
+   }
+  ]
+ },
+ {
+  "groupe": "Cake design & anniversaires",
+  "emoji": "🎂",
+  "couleur": "lilac",
+  "liens": [
+   {
+    "nom": "Molly cake",
+    "desc": "Féerie Cake",
+    "url": "http://blog.feeriecake.fr/cake-design/basiques/molly-cake/"
+   },
+   {
+    "nom": "Molly cake",
+    "desc": "MyCake",
+    "url": "https://www.mycake.fr/molly-cake"
+   },
+   {
+    "nom": "Number cake",
+    "desc": "Féerie Cake",
+    "url": "https://blog.feeriecake.fr/gateau-danniversaire-number-cake/"
+   },
+   {
+    "nom": "Gâteau Vaiana, tuto vidéo",
+    "desc": "Allo Maman Dodo",
+    "url": "http://allomamandodo.com/tuto-video-le-gateau-danniversaire-vaiana/"
+   },
+   {
+    "nom": "Gâteau Vaiana",
+    "desc": "Notre Famille",
+    "url": "http://cuisine.notrefamille.com/recettes-cuisine/gateau-vaiana-moana-cake-_333132-r.html"
+   },
+   {
+    "nom": "Gâteau Elsa",
+    "desc": "Féerie Cake",
+    "url": "http://blog.feeriecake.fr/cake-design/gateaux-en-pate-a-sucre/gateau-elsa/"
+   },
+   {
+    "nom": "Pièce montée et pâte à sucre",
+    "desc": "Recettes by Hanane",
+    "url": "http://www.recetteshanane.com/article-piece-montee-et-utilisation-de-pate-a-sucre-116210226.html"
+   },
+   {
+    "nom": "Rainbow cake",
+    "desc": "Prima",
+    "url": "http://www.prima.fr/gestion-remontees/video-hr/comment-faire-un-rainbow-cake/7921087/"
+   },
+   {
+    "nom": "Layer cake Ferrero Rocher",
+    "desc": "Entre épices et macarons",
+    "url": "http://entreepicesetmacarons.blogspot.fr/2014/02/layer-cake-ferrero-rocher.html?m=1"
+   },
+   {
+    "nom": "Ganache Nutella",
+    "desc": "MyCake",
+    "url": "http://www.mycake.fr/ganache-nutella#1462962582356-45994d51-be88"
+   },
+   {
+    "nom": "Ganache M&M's",
+    "desc": "MyCake",
+    "url": "http://www.mycake.fr/ganache-mm-s"
+   },
+   {
+    "nom": "Glaçage au sucre",
+    "desc": "Petitestetes",
+    "url": "http://www.petitestetes.com/parents-enfants/cuisine/avec-les-petits/glacage-sucre/glacage-sucre-1.htm"
+   }
+  ]
+ },
+ {
+  "groupe": "Desserts & goûters",
+  "emoji": "🍫",
+  "couleur": "yellow",
+  "liens": [
+   {
+    "nom": "Gâteau au chocolat extra moelleux aux framboises",
+    "desc": "Marmiton",
+    "url": "http://www.marmiton.org/recettes/recette_gateau-au-chocolat-extra-moelleux-aux-framboises_23303.aspx"
+   },
+   {
+    "nom": "Gâteaux triple chocolat",
+    "desc": "Gâteaux & Go",
+    "url": "http://gateauxandgo.wordpress.com/2012/12/07/gateaux-triple-chocolat/"
+   },
+   {
+    "nom": "Incroyable gâteau Maltesers",
+    "desc": "Gâteau au chocolat",
+    "url": "http://gateau-aux-chocolat.blogspot.fr/2013/08/incroyable-gateau-de-maltesers.html#.UxJSF5K9KK1"
+   },
+   {
+    "nom": "Gâteau chocolat mascarpone de Cyril Lignac",
+    "desc": "750g",
+    "url": "https://amp.750g.com/gateau-au-chocolat-et-mascarpone-de-cyril-lignac-r203986.htm"
+   },
+   {
+    "nom": "Gâteau Raffaello",
+    "desc": "Gâteaux & Délices",
+    "url": "https://gateaux-et-delices.com/gateau-raffaello/"
+   },
+   {
+    "nom": "Royal chocolat framboise",
+    "desc": "Ptitchef",
+    "url": "https://www.ptitchef.com/recettes/dessert/royal-chocolat-framboise-fid-1558450"
+   },
+   {
+    "nom": "Napolitain chocolat framboise",
+    "desc": "Les plaisirs gourmands",
+    "url": "http://cakeandcook.canalblog.com/archives/2014/02/02/29085663.html"
+   },
+   {
+    "nom": "Tigrés au chocolat façon Cyril Lignac",
+    "desc": "Empreinte Sucrée",
+    "url": "https://empreintesucree.fr/tigres-chocolat-facon-cyril-lignac/"
+   },
+   {
+    "nom": "Brownie croustillant au beurre de cacahuète",
+    "desc": "Chapeau Melon",
+    "url": "https://chapeaumelon.net/les-sucrees/battle-food-30-brownie-croustillant-au-beurre-de-cacahuete-riz-souffle/"
+   },
+   {
+    "nom": "Crousti-moelleux à la cacahuète",
+    "desc": "Novice en cuisine",
+    "url": "http://www.noviceencuisine.com/2016/01/crousti-moelleux-a-la-cacahuete.html"
+   },
+   {
+    "nom": "Macarons cacahuètes, chocolat, caramel",
+    "desc": "750g",
+    "url": "https://www.750g.com/macarons-cacahuetes-chocolat-et-caramel-r47453.htm"
+   },
+   {
+    "nom": "Macarons façon Snickers",
+    "desc": "Rock the Bretzel",
+    "url": "https://rockthebretzel.com/macarons-chocolat-caramel-et-cacahuetes-facon-snickers-2/"
+   },
+   {
+    "nom": "Macarons au citron",
+    "desc": "Pure Gourmandise",
+    "url": "http://www.puregourmandise.com/recettes/008.htm"
+   },
+   {
+    "nom": "Religieuse caramel beurre salé de Michalak",
+    "desc": "Académie du goût",
+    "url": "https://www.academiedugout.fr/recettes/religieuse-caramel-beurre-sale_4463_2"
+   },
+   {
+    "nom": "Tarte au citron meringuée",
+    "desc": "C& Choux",
+    "url": "http://www.c-choux.fr/tarte-au-citron-meringuee/"
+   },
+   {
+    "nom": "Tarte citron et chocolat blanc",
+    "desc": "La ligne gourmande",
+    "url": "http://lalignegourmande.fr/recettes/tartes/tarte-citron-chocolat-blanc/"
+   },
+   {
+    "nom": "Tarte chocolat façon cheesecake",
+    "desc": "La ligne gourmande",
+    "url": "http://lalignegourmande.fr/recettes/tartes/recette-de-la-tarte-chocolat-facon-cheese-cake/"
+   },
+   {
+    "nom": "Tarte Dulcey et cacahuète",
+    "desc": "Kenwood",
+    "url": "https://www.kenwoodworld.com/fr-fr/espace-recettes-kenwood-france/recettes-kenwood/recettes-pour-robots-patissier-kmix/tarte-dulcey-et-cacahuete-de-siham"
+   },
+   {
+    "nom": "Tarte tatin",
+    "desc": "Cuisine TV",
+    "url": "http://www.cuisine.tv/cid41082/tarte-tatin.html"
+   },
+   {
+    "nom": "Tarte tatin au caramel salé",
+    "desc": "Marmiton",
+    "url": "http://www.marmiton.org/recettes/recette_tarte-tatin-traditionnelle-au-caramel-sale_55339.aspx"
+   },
+   {
+    "nom": "Tarte au fromage blanc alsacienne",
+    "desc": "Marmiton",
+    "url": "http://www.marmiton.org/recettes/recette.cfm?num_recette=22130"
+   },
+   {
+    "nom": "Tiramisu aux spéculoos",
+    "desc": "Marmiton",
+    "url": "http://www.marmiton.org/recettes/recette_tiramisu-aux-speculoos_36386.aspx"
+   },
+   {
+    "nom": "Charlotte au citron",
+    "desc": "Pure Gourmandise",
+    "url": "http://www.puregourmandise.com/recettes/279.htm"
+   },
+   {
+    "nom": "Charlotte framboises façon tiramisu",
+    "desc": "Healthy Laura",
+    "url": "https://healthy-laura.com/charlotte-framboises-facon-tiramisu/"
+   },
+   {
+    "nom": "Cake meringue citron",
+    "desc": "Gourmand",
+    "url": "https://gourmand.viepratique.fr/dossiers/gateaux/le-cake-un-indemodable/tiramisu-aux-speculoos-dessert-spectaculaire-85468.html"
+   },
+   {
+    "nom": "Bundt cake aux Carambars",
+    "desc": "Fashion Cooking",
+    "url": "https://www.fashioncooking.fr/2018/03/bundt-cake-aux-carambars/"
+   },
+   {
+    "nom": "Œufs de Pâques cheesecake passion",
+    "desc": "Fashion Cooking",
+    "url": "http://www.fashioncooking.fr/2014/04/oeuf-coque-cheesecake-passion/"
+   },
+   {
+    "nom": "Puits d'amour",
+    "desc": "Cuisine+",
+    "url": "http://www.cuisine-plus.tv/cid56693/puits-d-amour.html"
+   },
+   {
+    "nom": "Cannelés bordelais",
+    "desc": "Marmiton",
+    "url": "http://www.marmiton.org/Recettes/Recette_canneles-bordelais_11439.aspx"
+   },
+   {
+    "nom": "Crêpes moelleuses",
+    "desc": "Hervé Cuisine",
+    "url": "https://www.hervecuisine.com/recette/crepes-de-la-chandeleur/"
+   },
+   {
+    "nom": "Caramel au beurre salé inratable",
+    "desc": "C'est ma fournée",
+    "url": "http://www.cestmafournee.com/2013/05/vous-ne-raterez-plus-jamais-votre.html?m=1"
+   },
+   {
+    "nom": "Pâte de spéculoos",
+    "desc": "La cuisine, ma passion",
+    "url": "http://domicuisine.over-blog.com/categorie-10652011.html"
+   },
+   {
+    "nom": "Crème de noisette façon Kinder Bueno",
+    "desc": "Vive les rondes",
+    "url": "http://www.vivelesrondes.com/forum/viewtopic.php?p=1231498#1231498"
+   },
+   {
+    "nom": "Barre glacée maison",
+    "desc": "Cerfdellier",
+    "url": "https://blog.cerfdellier.com/barre-glacee-maison/"
+   }
+  ]
+ },
+ {
+  "groupe": "Pains & brioches",
+  "emoji": "🥖",
+  "couleur": "blue",
+  "liens": [
+   {
+    "nom": "Brioche russe",
+    "desc": "Sandy Miam Miam",
+    "url": "http://sandy-miam-miam.overblog.com/2015/01/brioche-russe.html"
+   },
+   {
+    "nom": "Pull apart bread",
+    "desc": "Cooking Mumu",
+    "url": "http://www.cookingmumu.com/pull-apart-bread-une-brioche-canelle-a-tomber"
+   },
+   {
+    "nom": "Pain au lait extra moelleux, méthode asiatique",
+    "desc": "Alter Gusto",
+    "url": "http://www.altergusto.fr/2011/09/19/pain-lait-extra-moelleux-methode-asiatique/"
+   },
+   {
+    "nom": "Pain hamburger",
+    "desc": "À table avec Doro",
+    "url": "http://atableavecdoro.overblog.com/pain-hamburger"
+   },
+   {
+    "nom": "Pain surprise",
+    "desc": "La faim des Bananes",
+    "url": "http://www.lafaimdesbananes.com/m/article-121830651.html"
+   },
+   {
+    "nom": "Baguette française",
+    "desc": "Didier Guillion",
+    "url": "http://didier.guillion.over-blog.com/article-baguette-fran-aise-97096666.html"
+   },
+   {
+    "nom": "La baguette magique de Rose",
+    "desc": "Cooking Mumu",
+    "url": "http://www.cookingmumu.com/la-baguette-magique-de-rose"
+   },
+   {
+    "nom": "Crackers à l'avoine",
+    "desc": "L'Heure du Cream",
+    "url": "https://www.heureducream.com/crackers-a-lavoine/"
+   }
+  ]
+ },
+ {
+  "groupe": "Salé",
+  "emoji": "🧀",
+  "couleur": "green",
+  "liens": [
+   {
+    "nom": "Cake salé tomates, jambon, feta, basilic",
+    "desc": "Le péché de gourmandise",
+    "url": "http://peche-de-gourmandise.over-blog.com/article-2844706.html"
+   },
+   {
+    "nom": "Cake au chèvre, noix et raisins",
+    "desc": "iSaveurs",
+    "url": "http://www.isaveurs.com/recettes/recette_cake_au_chevre_noix_et_raisins.php"
+   },
+   {
+    "nom": "Cake croque-monsieur",
+    "desc": "Grignot Nat",
+    "url": "http://www.grignot-nat.com/article-cake-croque-monsieur-121104115.html"
+   },
+   {
+    "nom": "Cassolette mystère",
+    "desc": "Au pays de Calisto",
+    "url": "http://www.vivelesrondes.com/calisto/35633/"
+   },
+   {
+    "nom": "Crème brûlée au foie gras",
+    "desc": "L'Internaute",
+    "url": "http://www.linternaute.com/femmes/cuisine/recette/321784/1254643715/creme_brulee_au_foie_gras.shtml"
+   },
+   {
+    "nom": "Rillettes de maquereau et hareng fumé",
+    "desc": "Supertoinette",
+    "url": "http://www.forums.supertoinette.com/recettes_282856.mes_rillettes_de_maquereau.html"
+   },
+   {
+    "nom": "Rillettes de maquereau",
+    "desc": "Les gourmandises des petites blogueuses",
+    "url": "http://blogourmandise.canalblog.com/archives/2007/04/12/4609894.html"
+   },
+   {
+    "nom": "Parmentier de poulet au chèvre",
+    "desc": "L'Internaute",
+    "url": "http://www.linternaute.com/femmes/cuisine/recette/307881/1229864327/parmentier_de_poulet_a_la_puree_au_fromage_de_chevre.shtml"
+   },
+   {
+    "nom": "Goulasch",
+    "desc": "Le Cuisinier",
+    "url": "http://recettes.le-cuisinier.net/cuisine/fiche/1099-goulasch"
+   },
+   {
+    "nom": "Poulet au cidre",
+    "desc": "Marmiton",
+    "url": "http://www.marmiton.org/Recettes/Recette_poulet-au-cidre_13905.aspx"
+   },
+   {
+    "nom": "Langue de bœuf sauce tomate et cornichons",
+    "desc": "Sourine",
+    "url": "http://sourine.over-blog.com/article-35413345.html"
+   },
+   {
+    "nom": "Chutney figue et oignon",
+    "desc": "La cuisine de Josette",
+    "url": "http://www.la-cuisine-de-josette.com/article-chutney-de-figue-oignon-84289774.html"
+   },
+   {
+    "nom": "Pizza de belle-maman (focapizza)",
+    "desc": "La faim des Bananes",
+    "url": "http://www.lafaimdesbananes.com/pizza-belle-maman-focapizza.html"
+   },
+   {
+    "nom": "Cordon bleu maison",
+    "desc": "Mélie mélo en cuisine",
+    "url": "http://www.meliemeloencuisine.com/2015/09/cordon-bleu-maison-avec-ou-sans-thermomix.html"
+   },
+   {
+    "nom": "Mini cupcakes salés saumon fumé",
+    "desc": "Papilles On/Off",
+    "url": "http://papilles-on-off.blogspot.fr/2016/06/mini-cupcakes-sales-saumon-fume-et.html?m=1"
+   },
+   {
+    "nom": "Pulled pork",
+    "desc": "Ma tribu et moi",
+    "url": "https://www.matribuetmoi.com/post/pulled-pork"
+   },
+   {
+    "nom": "Pulled pork, Cookeo ou sans",
+    "desc": "Healthy Laura",
+    "url": "https://healthy-laura.com/pulled-pork/"
+   },
+   {
+    "nom": "Tartiflette de gnocchi",
+    "desc": "ChefNini",
+    "url": "http://www.chefnini.com/tartiflette-de-gnocchi/"
+   },
+   {
+    "nom": "Risotto de coquillettes au chorizo",
+    "desc": "Espace recettes",
+    "url": "http://espace-recettes.fr/node/263087"
+   },
+   {
+    "nom": "Tarte saumon fumé et concombre",
+    "desc": "Recettes au quotidien",
+    "url": "http://www.recettesauquotidien.com/plats/item/160-tarte-au-saumon-fume-et-concombres"
+   },
+   {
+    "nom": "Clafoutis tomates cerises et chèvre",
+    "desc": "CuisineAZ",
+    "url": "http://www.cuisineaz.com/recettes/clafoutis-de-tomates-cerises-et-chevre-60592.aspx?jour=mardi&utm_source=newsletter&utm_medium=quotidien-01042014&utm_content=encart-recette-haut&utm_campaign=recette-clafoutis-de-tomates-cerises-et-chevre"
+   },
+   {
+    "nom": "Trio de mini batbouts",
+    "desc": "My kitchenette",
+    "url": "https://mykitchenettecieby.wixsite.com/blogcuisine/post/trio-de-mini-batbouts"
+   },
+   {
+    "nom": "Tatin aux échalotes confites",
+    "desc": "Isa popote et papote",
+    "url": "http://www.isapetp.fr/2021/12/10/tatin-aux-echalotes-confites/"
+   },
+   {
+    "nom": "Confinade de tomates séchées",
+    "desc": "Ptitchef",
+    "url": "https://www.ptitchef.com/recettes/autre/confinade-de-tomates-sechees-fid-719528"
+   }
+  ]
+ },
+ {
+  "groupe": "Thermomix & Guy Demarle",
+  "emoji": "🍍",
+  "couleur": "yellow",
+  "liens": [
+   {
+    "nom": "Moelleux aux pommes (Thermomix)",
+    "desc": "Thermominoux",
+    "url": "http://thermominoux.over-blog.com/article-moelleux-aux-pommes-95158814.html"
+   },
+   {
+    "nom": "Poireaux gratinés au jambon (Thermomix)",
+    "desc": "Thermominoux",
+    "url": "http://thermominoux.over-blog.com/2015/04/poireaux-gratines-au-jambon-thermomix.html"
+   },
+   {
+    "nom": "Confiture de lait (Thermomix)",
+    "desc": "Bon Appétit",
+    "url": "http://tocinodecielo.blogspot.fr/2010/03/confiture-de-lait-thermomix-dulce-de.html"
+   },
+   {
+    "nom": "Chinois salé au jambon cru (Thermomix)",
+    "desc": "Les délices de Cintit",
+    "url": "http://cintit76.overblog.com/2013/10/chinois-sal%C3%A9-jambon-cru-thermomix.html"
+   },
+   {
+    "nom": "Barquettes maison (Thermomix)",
+    "desc": "À table avec Doro",
+    "url": "http://atableavecdoro.overblog.com/les-barquettes"
+   },
+   {
+    "nom": "Vinaigrette allégée (Thermomix)",
+    "desc": "Recettes économiques",
+    "url": "http://www.recettes-economiques.com/recettes/vinaigrette-allegee-au-thermomix/"
+   },
+   {
+    "nom": "Astuces Thermomix",
+    "desc": "Isabelle de Nimal",
+    "url": "http://isabelledenimal.over-blog.com/2014/02/astuces-pour-votre-thermomix-issues-du-site-espace-recettes-par-chachev.html"
+   },
+   {
+    "nom": "Croustifondant chocolat (Flexipan)",
+    "desc": "Guy Demarle",
+    "url": "http://www.guy-demarle.fr/desserts/190-croustifondant-noir-et-blanc.html"
+   },
+   {
+    "nom": "Gaufres, moule FX 2300 (i-Cook'in)",
+    "desc": "Guy Demarle",
+    "url": "https://www.guydemarle.com/recettes/gaufres-demo-ick-12573"
+   },
+   {
+    "nom": "Mini brownies (i-Cook'in)",
+    "desc": "Guy Demarle",
+    "url": "https://club.guydemarle.com/recette-cookin/mini-brownies"
+   },
+   {
+    "nom": "Pitch maison (i-Cook'in)",
+    "desc": "Guy Demarle",
+    "url": "https://www.guydemarle.com/recettes/pitch-maison-13438"
+   }
+  ]
+ },
+ {
+  "groupe": "Sites & astuces",
+  "emoji": "📚",
+  "couleur": "lilac",
+  "liens": [
+   {
+    "nom": "Papilles On/Off",
+    "desc": "Blog de cuisine",
+    "url": "https://papilles-on-off.fr/"
+   },
+   {
+    "nom": "Feeling Food",
+    "desc": "Communauté",
+    "url": "https://feeling-food.mn.co/feed"
+   },
+   {
+    "nom": "Que faire avec ?",
+    "desc": "Idées avec le frigo plein",
+    "url": "http://www.quefaireavec.com/"
+   },
+   {
+    "nom": "Cuisine japonaise",
+    "desc": "Site de recettes",
+    "url": "http://www.cuisine-japonaise.com/"
+   },
+   {
+    "nom": "Mettre la confiture en pots",
+    "desc": "Marmottons",
+    "url": "http://www.marmottons.net/confitures/bases/mettre-pots.php"
+   },
+   {
+    "nom": "Cadeaux gourmands à faire soi-même",
+    "desc": "C'est moi qui l'ai fait",
+    "url": "http://scally.typepad.com/cest_moi_qui_lai_fait/2010/12/cadeaux-gourmands-%C3%A0-faire-soi-m%C3%AAme-sur-100-mag-m6-les-recettes-.html"
+   }
+  ]
+ },
+ {
+  "groupe": "À classer",
+  "emoji": "🤔",
+  "couleur": "coral",
+  "liens": [
+   {
+    "nom": "Encore mieux qu'au Mac Quick",
+    "desc": "Plaisir macarons et autres popottes",
+    "url": "http://plaisirmacarons.canalblog.com/archives/2012/06/21/24546812.html"
+   },
+   {
+    "nom": "Mandise comme chez McDo",
+    "desc": "Les petits plats dans les grands",
+    "url": "http://lespetitsplatsdanslesgrands.over-blog.com/m/article-71614408.html"
+   }
+  ]
+ }
+];
+/* ====== fin de la liste ====== */
+
+const esc = s => String(s).replace(/[&<>"]/g, c => ({ "&":"&amp;", "<":"&lt;", ">":"&gt;", '"':"&quot;" }[c]));
+const host = u => { try { return new URL(u).hostname; } catch (e) { return ""; } };
+const norm = s => s.normalize("NFD").replace(/[̀-ͯ]/g, "").toLowerCase();
+
+let done={};try{done=JSON.parse(localStorage.getItem("recettes-testees")||"{}")}catch(e){}
+function lien(l) {
+  const h = host(l.url), letter = esc((l.nom || "?").trim()[0].toUpperCase());
+  const ok=!!done[l.url];
+  return `<div class="row${ok?" ok":""}"><button class="chk" data-u="${esc(l.url)}" aria-pressed="${ok}" aria-label="Recette testée">${ok?"✓":""}</button><a class="lien" href="${esc(l.url)}" target="_blank" rel="noopener">
+    <span class="ico"><img src="https://icons.duckduckgo.com/ip3/${esc(h)}.ico" alt="" loading="lazy" onerror="this.replaceWith(document.createTextNode('${letter}'))"></span>
+    <span class="txt"><span class="name">${esc(l.nom)}</span><span class="desc">${esc(l.desc || h)}</span></span>
+    <span class="arrow" aria-hidden="true">→</span></a></div>`;
+}
+function render(q) {
+  const n = norm(q || "");
+  const html = LIENS.map(g => {
+    const ls = g.liens.filter(l => !n || norm(l.nom + " " + (l.desc || "") + " " + g.groupe).includes(n));
+    const t=ls.filter(l=>done[l.url]).length;
+    return ls.length ? `<section class="fiche" style="--c:var(--${esc(g.couleur || "blue")})"><h2><span class="em" aria-hidden="true">${g.emoji || ""}</span>${esc(g.groupe)}<small class="cnt">${t}/${ls.length}</small></h2><div class="liens">${ls.map(lien).join("")}</div></section>` : "";
+  }).join("");
+  document.getElementById("groups").innerHTML = html || `<p class="empty">Rien trouvé pour « ${esc(q)} »… 🍍</p>`;
+}
+const qi = document.getElementById("q");
+qi.addEventListener("input", () => render(qi.value));
+qi.addEventListener("keydown", e => {
+  if (e.key === "Enter") { const a = document.querySelector("a.lien"); if (a) window.open(a.href, "_blank", "noopener"); }
+  if (e.key === "Escape") { qi.value = ""; render(""); qi.blur(); }
+});
+document.addEventListener("keydown", e => { if (e.key === "/" && document.activeElement !== qi) { e.preventDefault(); qi.focus(); } });
+document.getElementById("groups").addEventListener("click", e => { const b = e.target.closest(".chk"); if (!b) return; const u = b.dataset.u; if (done[u]) delete done[u]; else done[u] = 1; try { localStorage.setItem("recettes-testees", JSON.stringify(done)); } catch (err) {} render(qi.value); });
+
+const now = new Date(), h = now.getHours();
+document.getElementById("date").textContent = LIENS.reduce((n, g) => n + g.liens.length, 0) + " recettes repérées, classées par envie";
+render("");
+</script>
+</body>
+</html>

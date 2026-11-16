@@ -111,6 +111,25 @@ const LIENS = [
     { nom: "Cockpit perso", desc: "Sur ChatGPT", url: "https://marina-cockpit.mhodebert.chatgpt.site" },
     { nom: "Ancien blog Wix", desc: "Message de déménagement", url: "https://ananasnature.wixsite.com/website" },
     { nom: "Instagram du blog", desc: "@marina_l_ananas", url: "https://www.instagram.com/marina_l_ananas/" },
+    { nom: "Recettes à tester", desc: "Une centaine de recettes repérées", url: "recettes.html" },
+  ]},
+  { groupe: "Au quotidien", emoji: "☕", couleur: "coral", liens: [
+    { nom: "Google Drive", desc: "Mes fichiers", url: "https://drive.google.com" },
+    { nom: "Outlook", desc: "Ma boîte mail", url: "https://outlook.live.com" },
+    { nom: "YouTube", desc: "youtube.com", url: "https://www.youtube.com" },
+    { nom: "Google Maps", desc: "Itinéraires", url: "https://maps.google.com" },
+    { nom: "myCANAL", desc: "Films et séries", url: "https://www.canalplus.com" },
+    { nom: "RATP", desc: "Transports en Île-de-France", url: "https://www.ratp.fr" },
+    { nom: "Météo", desc: "Météo-France", url: "https://meteofrance.com" },
+  ]},
+  { groupe: "Démarches", emoji: "📮", couleur: "green", liens: [
+    { nom: "Service public", desc: "Démarches administratives", url: "https://www.service-public.fr" },
+    { nom: "Impôts", desc: "impots.gouv.fr", url: "https://www.impots.gouv.fr" },
+    { nom: "URSSAF particulier", desc: "Avance immédiate", url: "https://www.particulier.urssaf.fr" },
+  ]},
+  { groupe: "Pro", emoji: "📊", couleur: "blue", liens: [
+    { nom: "Sessionize", desc: "Mon espace speaker", url: "https://sessionize.com/app/speaker" },
+    { nom: "Club Power BI", desc: "clubpowerbi.com", url: "https://clubpowerbi.com" },
   ]},
   { groupe: "Mes pages Claude", emoji: "✨", couleur: "lilac", liens: [
     { nom: "Mes sites et outils", desc: "Où est rangé quoi", url: "https://claude.ai/artifact/QwVCp8d4rYbN31RFP5P8Nk" },
@@ -128,6 +147,7 @@ const LIENS = [
     { nom: "GitHub", desc: "marinahodebert", url: "https://github.com/marinahodebert" },
     { nom: "Dépôt Bibliothèque", desc: "bibliotheque-marina", url: "https://github.com/marinahodebert/bibliotheque-marina" },
     { nom: "OVHcloud", desc: "Domaine unananasencuisine.fr", url: "https://www.ovh.com/manager/" },
+    { nom: "Wix", desc: "Ancien blog, message de déménagement", url: "https://manage.wix.com" },
     { nom: "Modifier cette page", desc: "Son dépôt sur GitHub", url: "https://github.com/marinahodebert/marinahodebert.github.io" },
   ]},
 ];
@@ -139,8 +159,9 @@ const norm = s => s.normalize("NFD").replace(/[̀-ͯ]/g, "").toLowerCase();
 
 function lien(l) {
   const h = host(l.url), letter = esc((l.nom || "?").trim()[0].toUpperCase());
-  return `<a class="lien" href="${esc(l.url)}" target="_blank" rel="noopener">
-    <span class="ico"><img src="https://icons.duckduckgo.com/ip3/${esc(h)}.ico" alt="" loading="lazy" onerror="this.replaceWith(document.createTextNode('${letter}'))"></span>
+  const ext = /^https?:/.test(l.url);
+  return `<a class="lien" href="${esc(l.url)}"${ext ? ' target="_blank" rel="noopener"' : ""}>
+    <span class="ico">${ext ? `<img src="https://icons.duckduckgo.com/ip3/${esc(h)}.ico" alt="" loading="lazy" onerror="this.replaceWith(document.createTextNode('${letter}'))">` : "🍰"}</span>
     <span class="txt"><span class="name">${esc(l.nom)}</span><span class="desc">${esc(l.desc || h)}</span></span>
     <span class="arrow" aria-hidden="true">→</span></a>`;
 }
